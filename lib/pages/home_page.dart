@@ -45,14 +45,18 @@ class _HomePageState extends State<HomePage> {
         'com.termux.RUN_COMMAND_SESSION_ACTION': '0',
       },
     );
-    TerminalManager().bootDefaultSessions();
-    session = TerminalManager().getSession(id: "shell")!;
+    
 
     try {
-      await intent.sendService();
+      await intent.sendService();    
     } catch (e) {
       debugPrint("Failed to send intent: $e");
     }
+    TerminalManager().bootDefaultSessions();
+
+    session = TerminalManager().getSession(id: "shell")!;
+
+     await session.ready;  
   }
 
   Future<void> _checkForLastProject() async {
