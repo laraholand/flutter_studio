@@ -11,7 +11,7 @@ class TerminalManager {
   final port = '8767';
 
   final dartLSP =
-      "./lsp-ws-proxy --listen 5656 -- dart language-server --protocol=lsp";
+      "lsp-ws-proxy --listen 5656 -- dart language-server --protocol=lsp";
 
 
   TerminalSession createSession({required String id, required String command}) {
