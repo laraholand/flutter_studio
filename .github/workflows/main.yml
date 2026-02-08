@@ -11,36 +11,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Java (Android build requires Java 11)
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
+      # 3️⃣ Setup Flutter SDK
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.38.7"
+          flutter-version: "3.38.5"
           cache: true
 
+      # 4️⃣ Flutter dependencies
       - name: Install dependencies
         run: flutter pub get
         working-directory: ./
 
+      # 5️⃣ Analyze project (optional but recommended)
       - name: Analyze project
         run: flutter analyze
         working-directory: ./
         continue-on-error: true
 
-      - name: Build Release APKs (All Android ABIs)
-        run: flutter build apk --release --split-per-abi
+      # 6️⃣ Build Release APK for arm64-v8a only
+      - name: Build Release APK (arm64-v8a)
+        run: flutter build apk --debug --target-platform android-arm64
         working-directory: ./
-      
-      - name: Upload Release APKs
+
+      # 7️⃣ Upload APK as artifact
+      - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
-          name: backdrop-all-abi-apks
-          path: build/app/outputs/flutter-apk/*.apk
+          name: flutter_studio-arm64-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
