@@ -24,7 +24,7 @@ To install and set up Flutter Studio, follow these steps:
     *   Open Termux.
     *   Run the command: `termux-setup-storage`
 4.  **Grant Additional Permissions for Flutter Studio:**
-    *   Go to **Flutter Studio's** "App Info" (not your device's general App Info).
+    *   Go to **Flutter Studio's** "App Info".
     *   Navigate to "Permissions" -> "Additional Permissions".
     *   Allow all permissions listed there.
     ![Permission Screenshot](assets/screenshots/permission.png)
@@ -39,13 +39,14 @@ To install and set up Flutter Studio, follow these steps:
         ```bash
         ./Flutter_studio_setup/setup.sh
         ```
+    *   It automatically download need thing to use flutter studio    
 6.  **Verify Setup (Android Security):**
     *   For Android security, it is recommended to open Termux every time after unlocking your phone.
     *   After your phone locks, open and close the Termux application once.
     *   Open Flutter Studio. If you see the Termux icon in your notification panel, the setup is successful.
 
 ![Setup Successful Screenshot](assets/screenshots/xyz.jpg)
-## Screenshots
+## Screenshots of Runtime example 
 
 ![Screenshot 6](assets/screenshots/6.jpg)
 ![Screenshot 5](assets/screenshots/5.jpg)
