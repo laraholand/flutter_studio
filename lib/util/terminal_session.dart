@@ -5,6 +5,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:xterm/xterm.dart';
 
 class TerminalSession {
+  late Future<void> ready;
   final String id;
   final String command;
   final String serverHost;
@@ -19,38 +20,43 @@ class TerminalSession {
   bool _connected = false;
 
   TerminalSession({
-    required this.id,
-    required this.command,
-    required this.serverHost,
-    required this.serverPort,
+  required this.id,
+  required this.command,
+  required this.serverHost,
+  required this.serverPort,
   }) {
     terminal = Terminal();
     terminal.onOutput = _onOutput;
-    _connect();
+    ready = _connect();  
   }
 
   Future<void> _connect() async {
     final pid = await _createSession();
     if (pid == null) {
       _retry();
-      return;
+      throw Exception("session create failed");
     }
-
+  
     final wsUrl = 'ws://$serverHost:$serverPort/terminals/$pid';
     _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
-
+  
+    final completer = Completer<void>();
+  
     _sub = _channel!.stream.listen(
       (event) {
         if (!_connected) {
           _connected = true;
           sendCommand(command);
+          completer.complete();   
         }
-
+  
         terminal.write(event is String ? event : utf8.decode(event));
       },
       onDone: _retry,
       onError: (_) => _retry(),
     );
+  
+    return completer.future;
   }
 
   Future<String?> _createSession() async {
