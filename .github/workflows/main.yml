@@ -42,7 +42,7 @@ jobs:
 
       # 6️⃣ Build Release APK for arm64-v8a only
       - name: Build Release APK (arm64-v8a)
-        run: flutter build apk --release --target-platform android-arm64
+        run: flutter build apk --release --target-platform android-arm64 --no-shrink
         working-directory: ./
 
       # 7️⃣ Upload APK as artifact
