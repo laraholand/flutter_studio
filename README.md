@@ -33,11 +33,11 @@ To install and set up Flutter Studio, follow these steps:
     *   Open Termux.
     *   Clone the setup repository:
         ```bash
-        pkg install git && git clone https://github.com/laraholand/Flutter_studio_setup
+        pkg install git -y && git clone https://github.com/laraholand/Flutter_studio_setup chmod +x Flutter_studio_setup/setup.sh
         ```
     *   Execute the setup script:
         ```bash
-        chmod +x Flutter_studio_setup/setup.sh && ./Flutter_studio_setup/setup.sh
+        ./Flutter_studio_setup/setup.sh
         ```
     *   It automatically download need thing to use flutter studio    
 6.  **Verify Setup (Android Security):**
