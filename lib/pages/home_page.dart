@@ -52,6 +52,8 @@ class _HomePageState extends State<HomePage> {
     } catch (e) {
       debugPrint("Failed to send intent: $e");
     }
+    await Future.delayed(const Duration(seconds: 2));
+
     TerminalManager().bootDefaultSessions();
 
     session = TerminalManager().getSession(id: "shell")!;
