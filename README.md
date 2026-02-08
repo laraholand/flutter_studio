@@ -7,6 +7,8 @@ This project is now open source! We welcome contributions from the community to 
 ## Getting Started Setup
 
 To set up Flutter Studio, follow these steps:
+
+
 0. Open app info of flutter studio then go Permission then Additional permission go and all permission allowed 
 
 1. Clone the setup repository in Termux:
