@@ -1,0 +1,1 @@
+enum PageType { EDITOR, PREVIEW, TERMINAL }
