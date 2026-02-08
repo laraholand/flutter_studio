@@ -37,7 +37,7 @@ To install and set up Flutter Studio, follow these steps:
         ```
     *   Execute the setup script:
         ```bash
-        ./Flutter_studio_setup/setup.sh
+        chmod +x Flutter_studio_setup/setup.sh && ./Flutter_studio_setup/setup.sh
         ```
     *   It automatically download need thing to use flutter studio    
 6.  **Verify Setup (Android Security):**
