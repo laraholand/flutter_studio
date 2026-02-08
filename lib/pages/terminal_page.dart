@@ -41,8 +41,18 @@ class _TerminalPageState extends State<TerminalPage>
   @override
   Widget build(BuildContext context) {
     final sessions = manager.allSessions;
-
+  
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Terminal"),
+        bottom: TabBar(
+          controller: _controller,
+          isScrollable: true,
+          tabs: sessions
+              .map((s) => Tab(text: s.id)) 
+              .toList(),
+        ),
+      ),
       body: TabBarView(
         controller: _controller,
         children: sessions

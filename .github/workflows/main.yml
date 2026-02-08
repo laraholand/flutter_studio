@@ -1,0 +1,46 @@
+name: Flutter Android APK Build
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.38.7"
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: ./
+
+      - name: Analyze project
+        run: flutter analyze
+        working-directory: ./
+        continue-on-error: true
+
+      - name: Build Release APK (arm64-v8a)
+        run: flutter build apk --release --target-platform android-arm64
+        working-directory: ./
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: backdrop-arm64-apk
+          path: build/app/outputs/flutter-apk/app-release.apk

@@ -13,7 +13,6 @@ class TerminalManager {
   final dartLSP =
       "./lsp-ws-proxy --listen 5656 -- dart language-server --protocol=lsp";
 
-  final htmlLSP = "./lsp-ws-proxy --listen 5657 -- html-languageserver --stdio";
 
   TerminalSession createSession({required String id, required String command}) {
     if (_sessions.containsKey(id)) {
@@ -46,10 +45,9 @@ class TerminalManager {
 
   void bootDefaultSessions() {
     if (_sessions.isNotEmpty) return;
-
-    createSession(id: "dartLSP", command: dartLSP);
-    createSession(id: "htmlLSP", command: htmlLSP);
+   
     createSession(id: "shell", command: "clear");
+    createSession(id: "dartLSP", command: dartLSP);
   }
 
   void disposeAll() {
