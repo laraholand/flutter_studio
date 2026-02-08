@@ -46,11 +46,12 @@ To install and set up Flutter Studio, follow these steps:
 
 ![Setup Successful Screenshot](assets/screenshots/xyz.jpg)
 ## Screenshots
-![Screenshot 0](assets/screenshots/0.jpg)
-![Screenshot 1](assets/screenshots/1.jpg)
-![Screenshot 2](assets/screenshots/2.jpg)
-![Screenshot 3](assets/screenshots/3.jpg)
-![Screenshot 4](assets/screenshots/4.jpg)
-![Screenshot 5](assets/screenshots/5.jpg)
+
 ![Screenshot 6](assets/screenshots/6.jpg)
+![Screenshot 5](assets/screenshots/5.jpg)
+![Screenshot 4](assets/screenshots/4.jpg)
+![Screenshot 3](assets/screenshots/3.jpg)
+![Screenshot 2](assets/screenshots/2.jpg)
+![Screenshot 1](assets/screenshots/1.jpg)
+![Screenshot 0](assets/screenshots/0.jpg)
 
