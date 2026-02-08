@@ -33,7 +33,7 @@ To install and set up Flutter Studio, follow these steps:
     *   Open Termux.
     *   Clone the setup repository:
         ```bash
-        pkg install git -y && git clone https://github.com/laraholand/Flutter_studio_setup chmod +x Flutter_studio_setup/setup.sh
+        pkg install git -y && git clone https://github.com/laraholand/Flutter_studio_setup && chmod +x Flutter_studio_setup/setup.sh
         ```
     *   Execute the setup script:
         ```bash
