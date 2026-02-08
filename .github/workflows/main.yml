@@ -35,12 +35,12 @@ jobs:
         working-directory: ./
         continue-on-error: true
 
-      - name: Build Release APK (arm64-v8a)
-        run: flutter build apk --release --target-platform android-arm64
+      - name: Build Release APKs (All Android ABIs)
+        run: flutter build apk --release --split-per-abi
         working-directory: ./
-
-      - name: Upload Release APK
+      
+      - name: Upload Release APKs
         uses: actions/upload-artifact@v4
         with:
-          name: backdrop-arm64-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: backdrop-all-abi-apks
+          path: build/app/outputs/flutter-apk/*.apk
