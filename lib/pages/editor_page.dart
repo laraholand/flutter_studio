@@ -13,6 +13,7 @@ import 'package:flutter_studio/util/page_type.dart';
 import 'package:flutter_studio/pages/preview_page.dart';
 import 'package:flutter_studio/util/terminal_manager.dart';
 import 'package:sonner_toast/sonner_toast.dart';
+import 'home_page.dart';
 
 class ExtendedTabData {
   String filePath;
@@ -46,7 +47,7 @@ class _EditorPageState extends State<EditorPage> {
   int _currentIndex = 0;
   final bool _isDrawerCollapsed = false;
 
-  bool _isAppRunning = false; 
+  bool _isAppRunning = false;
   PageType _currentPage = PageType.EDITOR;
 
   UndoRedoController? get currentUndoController =>
@@ -163,8 +164,6 @@ class _EditorPageState extends State<EditorPage> {
         duration: const Duration(seconds: 3),
       );
 
-      
-
       if (path.basename(fileData.filePath) == 'pubspec.yaml') {
         _syncProject();
       }
@@ -178,9 +177,9 @@ class _EditorPageState extends State<EditorPage> {
     showMenu(
       context: context,
       position: RelativeRect.fromLTRB(
-        offset.dx + 40, 
-        offset.dy + kToolbarHeight, 
-        offset.dx + 200, 
+        offset.dx + 40,
+        offset.dy + kToolbarHeight,
+        offset.dx + 200,
         0,
       ),
       items: [
@@ -217,7 +216,7 @@ class _EditorPageState extends State<EditorPage> {
         leading: Icon(icon),
         title: Text(text),
         onTap: () {
-          Navigator.pop(context); 
+          Navigator.pop(context);
           onTap();
         },
       ),
@@ -227,7 +226,7 @@ class _EditorPageState extends State<EditorPage> {
   Future<bool> _promptToSave(int index) async {
     final fileData = openFiles[index];
     if (!fileData.isModified) {
-      return true; 
+      return true;
     }
 
     final result = await showDialog<DialogResult>(
@@ -399,7 +398,7 @@ class _EditorPageState extends State<EditorPage> {
         return Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: const Color(0xFF3B444B), 
+            color: const Color(0xFF3B444B),
             borderRadius: BorderRadius.circular(8),
           ),
           child: const Text(
@@ -675,168 +674,175 @@ class _EditorPageState extends State<EditorPage> {
             filePath: fileData.filePath,
             enableKeyboardSuggestions: false,
             deleteFoldRangeOnDeletingFirstLine: true,
+            textStyle: const TextStyle(fontSize: 12),
           ),
         ),
       );
     }
     Future<void> _handleDoubleBack() async {
-  final now = DateTime.now();
+      final now = DateTime.now();
 
-  if (_lastBackPressTime == null ||
-      now.difference(_lastBackPressTime!) > const Duration(seconds: 2)) {
-    _lastBackPressTime = now;
+      if (_lastBackPressTime == null ||
+          now.difference(_lastBackPressTime!) > const Duration(seconds: 2)) {
+        _lastBackPressTime = now;
 
-    FocusScope.of(context).unfocus();
+        FocusScope.of(context).unfocus();
 
-    Sonner.toast(
-      builder: (context, dismiss) => const Text("Press back again"),
-      duration: const Duration(seconds: 2),
-    );
+        Sonner.toast(
+          builder: (context, dismiss) => const Text("Press back again"),
+          duration: const Duration(seconds: 2),
+        );
 
-    return;
-  }
+        return;
+      }
 
-
-  if (_currentPage != PageType.EDITOR) {
-    final confirm = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text("Leave this page?"),
-        content: const Text("Go back to editor?"),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text("Cancel"),
+      if (_currentPage != PageType.EDITOR) {
+        final confirm = await showDialog<bool>(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: const Text("Leave this page?"),
+            content: const Text("Go back to editor?"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text("Cancel"),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text("Yes"),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text("Yes"),
-          ),
-        ],
-      ),
-    );
+        );
 
-    if (confirm == true && mounted) {
-      setState(() {
-        _currentPage = PageType.EDITOR;
-      });
-    }
-
-    return;
-  }
-
-  final exit = await showDialog<bool>(
-    context: context,
-    builder: (_) => AlertDialog(
-      title: const Text("Exit project?"),
-      content: const Text("Are you sure you want to exit?"),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context, false),
-          child: const Text("Cancel"),
-        ),
-        TextButton(
-          onPressed: () => Navigator.pop(context, true),
-          child: const Text("Exit"),
-        ),
-      ],
-    ),
-  );
-
-  if (exit == true && mounted) {
-    Navigator.pop(context);
-  }
-}
-  return PopScope(
-  canPop: false,
-  onPopInvoked: (didPop) async {
-    if (didPop) return;
-    await _handleDoubleBack();
-  },
-    child: Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: EditorAppBar(
-        currentUndoController: currentUndoController,
-        isModified:
-            openFiles.isNotEmpty &&
-            _currentIndex < openFiles.length &&
-            openFiles[_currentIndex].isModified,
-        isEmpty: openFiles.isEmpty,
-        isAppRunning: _isAppRunning,
-
-        onSave: () => _saveFile(_currentIndex),
-        onRun: _runApp,
-        onStop: _stopApp,
-        onHotReload: _hotReload,
-        onHotRestart: _hotRestart,
-        onTerminal: () => _openTerminal(context),
-        onSync: _syncProject,
-        onBuildOptions: _showBuildOptionsDialog,
-        onEdit: () => _showEditContextMenu(context),
-        onCreateNewTerminalSession: () =>
-            TerminalManager().createSession(id: "terminal", command: "clear"),
-        onCancel: () {
+        if (confirm == true && mounted) {
           setState(() {
             _currentPage = PageType.EDITOR;
           });
-        },
-        onPreviewReload: _hotReload,
-        pageType: _currentPage,
-      ),
-      drawer: Drawer(
-        child: SafeArea(
-          child: DirectoryTreeViewer(
-            rootPath: widget.projectRootDir,
-            enableCreateFolderOption: true,
-            isUnfoldedFirst: !_isDrawerCollapsed,
-            onFileTap: (file, details) {
-              _openFile(file);
-              Navigator.pop(context);
-            },
+        }
+
+        return;
+      }
+
+      final exit = await showDialog<bool>(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text("Exit project?"),
+          content: const Text("Are you sure you want to exit?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                  (route) => false,
+                );
+              },
+              child: const Text("Exit"),
+            ),
+          ],
+        ),
+      );
+
+      if (exit == true && mounted) {
+        Navigator.pop(context);
+      }
+    }
+
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) return;
+        await _handleDoubleBack();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        appBar: EditorAppBar(
+          currentUndoController: currentUndoController,
+          isModified:
+              openFiles.isNotEmpty &&
+              _currentIndex < openFiles.length &&
+              openFiles[_currentIndex].isModified,
+          isEmpty: openFiles.isEmpty,
+          isAppRunning: _isAppRunning,
+
+          onSave: () => _saveFile(_currentIndex),
+          onRun: _runApp,
+          onStop: _stopApp,
+          onHotReload: _hotReload,
+          onHotRestart: _hotRestart,
+          onTerminal: () => _openTerminal(context),
+          onSync: _syncProject,
+          onBuildOptions: _showBuildOptionsDialog,
+          onEdit: () => _showEditContextMenu(context),
+          onCreateNewTerminalSession: () =>
+              TerminalManager().createSession(id: "terminal", command: "clear"),
+          onCancel: () {
+            setState(() {
+              _currentPage = PageType.EDITOR;
+            });
+          },
+          onPreviewReload: _hotReload,
+          pageType: _currentPage,
+        ),
+        drawer: Drawer(
+          child: SafeArea(
+            child: DirectoryTreeViewer(
+              rootPath: widget.projectRootDir,
+              enableCreateFolderOption: true,
+              isUnfoldedFirst: !_isDrawerCollapsed,
+              onFileTap: (file, details) {
+                _openFile(file);
+                Navigator.pop(context);
+              },
+            ),
           ),
         ),
-      ),
-      body: IndexedStack(
-        index: _pageIndex, 
-        children: [
-          openFiles.isNotEmpty
-              ? Column(
-                  children: [
-                    Expanded(
-                      child: DynamicTabBarWidget(
-                        isScrollable: true,
-                        physicsTabBarView: NeverScrollableScrollPhysics(),
-                        dynamicTabs: tabsWithMenu,
-                        onTabControllerUpdated: (controller) {
-                          _tabController = controller;
-                        },
-                        onTabChanged: (index) {
-                          if (index != null) {
-                            setState(() {
-                              _currentIndex = index;
-                            });
-                          }
-                        },
+        body: IndexedStack(
+          index: _pageIndex,
+          children: [
+            openFiles.isNotEmpty
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: DynamicTabBarWidget(
+                          isScrollable: true,
+                          physicsTabBarView: NeverScrollableScrollPhysics(),
+                          dynamicTabs: tabsWithMenu,
+                          onTabControllerUpdated: (controller) {
+                            _tabController = controller;
+                          },
+                          onTabChanged: (index) {
+                            if (index != null) {
+                              setState(() {
+                                _currentIndex = index;
+                              });
+                            }
+                          },
+                        ),
                       ),
-                    ),
-                    ExtraKeysPanel(
-                      controller: openFiles.isNotEmpty
-                          ? openFiles[_currentIndex].controller
-                          : null,
-                    ),
-                  ],
-                )
-              : const Center(
-                  child: Text('Open a file from the drawer to start editing'),
-                ),
+                      ExtraKeysPanel(
+                        controller: openFiles.isNotEmpty
+                            ? openFiles[_currentIndex].controller
+                            : null,
+                      ),
+                    ],
+                  )
+                : const Center(
+                    child: Text('Open a file from the drawer to start editing'),
+                  ),
 
-          // Preview view
-          const PreviewPage(), // WebView at localhost:8080
-          TerminalPage(),
-        ],
+            // Preview view
+            const PreviewPage(), // WebView at localhost:8080
+            TerminalPage(),
+          ],
+        ),
       ),
-    )
-   ) ;
+    );
   }
 }
 

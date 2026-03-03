@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
               key: Sonner.overlayKey,
               config: const SonnerConfig(
                 width: 250,
-                alignment: Alignment.bottomRight, 
+                alignment: Alignment.bottomRight,
                 expandedSpacing: 10.0,
                 collapsedOffset: 13.0,
                 maxVisibleToasts: 4,
@@ -59,34 +59,26 @@ class MyApp extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
-            ), 
-            elevation: 0, 
+            ),
+            elevation: 0,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
             textStyle: const TextStyle(
               fontSize: 16,
               // fontFamily: "NeoFolia",
               fontWeight: FontWeight.bold,
             ),
-            foregroundColor: Colors.white, 
-            backgroundColor: Colors.transparent, 
-            side: const BorderSide(
-              color: Colors.white,
-              width: 1.5,
-            ), 
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.transparent,
+            side: const BorderSide(color: Colors.white, width: 1.5),
           ),
         ),
         textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white, 
-          ),
+          style: TextButton.styleFrom(foregroundColor: Colors.white),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
-            foregroundColor: Colors.white, 
-            side: const BorderSide(
-              color: Colors.white,
-              width: 1.5,
-            ), 
+            foregroundColor: Colors.white,
+            side: const BorderSide(color: Colors.white, width: 1.5),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -97,11 +89,10 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-       
+
         tabBarTheme: const TabBarThemeData(
-          labelColor: Colors.white, 
-          unselectedLabelColor:
-              Colors.white70, 
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white70,
           indicator: BoxDecoration(
             border: Border(top: BorderSide(color: Colors.yellow, width: 2)),
           ),

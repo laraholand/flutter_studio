@@ -45,20 +45,14 @@ class _HomePageState extends State<HomePage> {
         'com.termux.RUN_COMMAND_SESSION_ACTION': '0',
       },
     );
-    
+    TerminalManager().bootDefaultSessions();
+    session = TerminalManager().getSession(id: "shell")!;
 
     try {
-      await intent.sendService();    
+      await intent.sendService();
     } catch (e) {
       debugPrint("Failed to send intent: $e");
     }
-    await Future.delayed(const Duration(seconds: 2));
-
-    TerminalManager().bootDefaultSessions();
-
-    session = TerminalManager().getSession(id: "shell")!;
-
-     await session.ready;  
   }
 
   Future<void> _checkForLastProject() async {
@@ -241,10 +235,8 @@ git clone $repoUrl
                               final command =
                                   'flutter create --project-name $projectName --org $packageName $fullProjectPath';
 
-                              
                               Clipboard.setData(ClipboardData(text: command));
 
-                              
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text(
@@ -253,13 +245,11 @@ git clone $repoUrl
                                 ),
                               );
 
-                             
                               TerminalManager().sendToSession(
                                 id: "shell",
                                 command: command,
                               );
 
-                             
                               showDialog(
                                 context: context,
                                 barrierDismissible: false,
@@ -286,7 +276,7 @@ git clone $repoUrl
                                         },
                                         child: const Text('Close'),
                                       ),
-                                     
+
                                       TextButton(
                                         onPressed: () {
                                           Navigator.pop(
@@ -307,9 +297,6 @@ git clone $repoUrl
                                   );
                                 },
                               );
-
-                              
-                              
                             },
                             child: const Text("Create"),
                           ),
@@ -320,7 +307,6 @@ git clone $repoUrl
                 },
               ),
 
-              
               buildButton(
                 width: buttonWidth,
                 icon: Icons.folder,
@@ -341,7 +327,6 @@ git clone $repoUrl
                 },
               ),
 
-              
               buildButton(
                 width: buttonWidth,
                 icon: Icons.cloud_download,
@@ -394,8 +379,6 @@ git clone $repoUrl
                   );
                 },
               ),
-              
-              
 
               SizedBox(height: size.height * 0.04),
               Text(

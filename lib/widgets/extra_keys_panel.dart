@@ -15,8 +15,7 @@ class ExtraKeysPanel extends StatelessWidget {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      color: colorScheme
-          .surface,
+      color: colorScheme.surface,
       child: Column(
         children: [
           SingleChildScrollView(
@@ -54,9 +53,7 @@ class KeyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final BorderRadiusGeometry borderRadius = BorderRadius.circular(
-      12.0,
-    ); 
+    final BorderRadiusGeometry borderRadius = BorderRadius.circular(12.0);
     return InkWell(
       onTap: () {
         if (keyboardKey == 'Action') {
@@ -68,7 +65,7 @@ class KeyButton extends StatelessWidget {
         } else if (keyboardKey == 'Dup') {
           controller.duplicateLine();
         } else if (keyboardKey == 'ESC') {
-        controller.clearAllSuggestions();
+          controller.clearAllSuggestions();
         } else if (keyboardKey == Icons.arrow_left) {
           controller.pressLetfArrowKey();
         } else if (keyboardKey == Icons.arrow_right) {
@@ -77,7 +74,8 @@ class KeyButton extends StatelessWidget {
           controller.pressUpArrowKey();
         } else if (keyboardKey == Icons.arrow_downward) {
           controller.pressDownArrowKey();
-        } else if(keyboardKey == "LSP"){}else if (keyboardKey is String) {
+        } else if (keyboardKey == "LSP") {
+        } else if (keyboardKey is String) {
           controller.insertAtCurrentCursor(keyboardKey);
         }
       },
@@ -85,13 +83,9 @@ class KeyButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: colorScheme
-              .surface, 
+          color: colorScheme.surface,
           borderRadius: borderRadius,
-          border: Border.all(
-            color: colorScheme.onPrimary,
-            width: 1,
-          ), 
+          border: Border.all(color: colorScheme.onPrimary, width: 1),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withAlpha(77),
@@ -102,18 +96,8 @@ class KeyButton extends StatelessWidget {
           ],
         ),
         child: keyboardKey is String
-            ? Text(
-                keyboardKey,
-                style: TextStyle(
-                  color: colorScheme.onPrimary,
-                ),
-              )
-            : Icon(
-                keyboardKey,
-                size: 18,
-                color: colorScheme
-                    .onPrimary, 
-              ),
+            ? Text(keyboardKey, style: TextStyle(color: colorScheme.onPrimary))
+            : Icon(keyboardKey, size: 18, color: colorScheme.onPrimary),
       ),
     );
   }

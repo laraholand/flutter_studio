@@ -17,9 +17,6 @@ class _TerminalPageState extends State<TerminalPage>
   @override
   void initState() {
     super.initState();
-
-    manager.bootDefaultSessions();
-
     _controller = TabController(
       length: manager.allSessions.length,
       vsync: this,
@@ -41,16 +38,14 @@ class _TerminalPageState extends State<TerminalPage>
   @override
   Widget build(BuildContext context) {
     final sessions = manager.allSessions;
-  
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Terminal"),
         bottom: TabBar(
           controller: _controller,
           isScrollable: true,
-          tabs: sessions
-              .map((s) => Tab(text: s.id)) 
-              .toList(),
+          tabs: sessions.map((s) => Tab(text: s.id)).toList(),
         ),
       ),
       body: TabBarView(

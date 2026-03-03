@@ -20,14 +20,14 @@ class TerminalSession {
   bool _connected = false;
 
   TerminalSession({
-  required this.id,
-  required this.command,
-  required this.serverHost,
-  required this.serverPort,
+    required this.id,
+    required this.command,
+    required this.serverHost,
+    required this.serverPort,
   }) {
     terminal = Terminal();
     terminal.onOutput = _onOutput;
-    ready = _connect();  
+    ready = _connect();
   }
 
   Future<void> _connect() async {
@@ -36,26 +36,26 @@ class TerminalSession {
       _retry();
       throw Exception("session create failed");
     }
-  
+
     final wsUrl = 'ws://$serverHost:$serverPort/terminals/$pid';
     _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
-  
+
     final completer = Completer<void>();
-  
+
     _sub = _channel!.stream.listen(
       (event) {
         if (!_connected) {
           _connected = true;
           sendCommand(command);
-          completer.complete();   
+          completer.complete();
         }
-  
+
         terminal.write(event is String ? event : utf8.decode(event));
       },
       onDone: _retry,
       onError: (_) => _retry(),
     );
-  
+
     return completer.future;
   }
 

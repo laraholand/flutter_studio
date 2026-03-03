@@ -105,10 +105,10 @@ class EditorAppBar extends StatelessWidget implements PreferredSizeWidget {
             ] else ...[
               IconButton(
                 icon: Image.asset(
-                  'assets/icons/flash.png', 
+                  'assets/icons/flash.png',
                   width: 24,
                   height: 24,
-                  color: Colors.yellow, 
+                  color: Colors.yellow,
                 ),
                 onPressed: onHotReload,
                 tooltip: 'Hot Reload',
@@ -189,10 +189,10 @@ class EditorAppBar extends StatelessWidget implements PreferredSizeWidget {
             ] else ...[
               IconButton(
                 icon: Image.asset(
-                  'assets/icons/flash.png', 
+                  'assets/icons/flash.png',
                   width: 24,
                   height: 24,
-                  color: Colors.yellow, 
+                  color: Colors.yellow,
                 ),
                 onPressed: onHotReload,
                 tooltip: 'Hot Reload',
@@ -210,7 +210,7 @@ class EditorAppBar extends StatelessWidget implements PreferredSizeWidget {
                     case 'sync_project':
                       onSync();
                       break;
-                    case 'hot_restart': 
+                    case 'hot_restart':
                       onHotRestart();
                       break;
                   }
@@ -247,7 +247,6 @@ class EditorAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                   const PopupMenuItem<String>(
-                    
                     value: 'hot_restart',
                     child: Row(
                       children: [

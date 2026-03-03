@@ -284,14 +284,12 @@ class _FoldableDirectoryTreeState extends State<FoldableDirectoryTree> {
 
         return Wrap(
           children: <Widget>[
-           
             if (showDeleteOption) // Conditionally show Delete ListTile
               ListTile(
                 leading: const Icon(Icons.delete),
                 title: const Text('Delete'),
                 onTap: () async {
-                  
-                  Navigator.pop(context); 
+                  Navigator.pop(context);
 
                   final confirmDelete = await showDialog<bool>(
                     context: context,
@@ -321,11 +319,9 @@ class _FoldableDirectoryTreeState extends State<FoldableDirectoryTree> {
                     try {
                       entity.deleteSync(recursive: true);
                       if (mounted) {
-                        
-                        setState(() {}); 
+                        setState(() {});
                       }
                     } catch (e) {
-                      
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -340,7 +336,7 @@ class _FoldableDirectoryTreeState extends State<FoldableDirectoryTree> {
                 },
               ),
             if (isDirectory) ...[
-              if (widget.enableCreateFileOption) 
+              if (widget.enableCreateFileOption)
                 ListTile(
                   leading: const Icon(Icons.note_add),
                   title: const Text('New file'),
@@ -349,8 +345,7 @@ class _FoldableDirectoryTreeState extends State<FoldableDirectoryTree> {
                     _showCreateRenameDialog(entity: entity, isFolder: false);
                   },
                 ),
-              if (widget
-                  .enableCreateFolderOption) 
+              if (widget.enableCreateFolderOption)
                 ListTile(
                   leading: const Icon(Icons.create_new_folder),
                   title: const Text('New folder'),

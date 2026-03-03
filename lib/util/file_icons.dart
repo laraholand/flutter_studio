@@ -24,7 +24,7 @@ Widget getIconForFile(File file) {
     'yaml': 'yaml',
     'md': 'markdown',
     'gitignore': 'git',
-    'lock': 'yarn', 
+    'lock': 'yarn',
     'svg': 'svg',
     'png': 'image',
     'jpg': 'image',
