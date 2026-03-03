@@ -83,6 +83,9 @@ class _EditorPageState extends State<EditorPage> {
           workspacePath: widget.projectRootDir,
           languageId: 'dart',
           serverUrl: 'ws://localhost:5656',
+          capabilities: LspClientCapabilities(
+         codeFolding: false
+     )
         ),
       );
       controller.setUndoController(undoController);
