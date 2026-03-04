@@ -2801,54 +2801,38 @@ class _CodeForgeState extends State<CodeForge> with TickerProviderStateMixin {
                                                         ),
                                                         Expanded(
                                                           flex: 3,
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            mainAxisSize: MainAxisSize.min,
-                                                            children: [
-                                                              Text(
-                                                                item.label,
-                                                                style:
-                                                                    _suggestionStyle.labelTextStyle?.copyWith(
-                                                                      color:
-                                                                          ((!_isMobile &&
-                                                                                  (indx ==
-                                                                                      _sugSelIndex)) ||
-                                                                              _controller.currentlySelectedSuggestion ==
-                                                                                  indx)
-                                                                          ? Colors.white
-                                                                          : _suggestionStyle.labelTextStyle?.color,
-                                                                    ) ??
-                                                                    _suggestionStyle.textStyle.copyWith(
-                                                                      color:
-                                                                          ((!_isMobile &&
-                                                                                  (indx ==
-                                                                                      _sugSelIndex)) ||
-                                                                              _controller.currentlySelectedSuggestion ==
-                                                                                  indx)
-                                                                          ? Colors.white
-                                                                          : _suggestionStyle.textStyle.color,
-                                                                    ),
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                              ),
-
-                                                              if (item.returnType !=
-                                                                  null)
-                                                                Text(
-                                                                  item.returnType!,
-                                                                  style: _suggestionStyle
-                                                                      .typeTextStyle,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
+                                                          child: Text(
+                                                            item.label,
+                                                            style:
+                                                                _suggestionStyle.labelTextStyle?.copyWith(
+                                                                  color:
+                                                                      ((!_isMobile &&
+                                                                              (indx ==
+                                                                                  _sugSelIndex)) ||
+                                                                          _controller.currentlySelectedSuggestion ==
+                                                                              indx)
+                                                                      ? Colors
+                                                                            .white
+                                                                      : _suggestionStyle
+                                                                            .labelTextStyle
+                                                                            ?.color,
+                                                                ) ??
+                                                                _suggestionStyle.textStyle.copyWith(
+                                                                  color:
+                                                                      ((!_isMobile &&
+                                                                              (indx ==
+                                                                                  _sugSelIndex)) ||
+                                                                          _controller.currentlySelectedSuggestion ==
+                                                                              indx)
+                                                                      ? Colors
+                                                                            .white
+                                                                      : _suggestionStyle
+                                                                            .textStyle
+                                                                            .color,
                                                                 ),
-                                                            ],
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
                                                         ),
                                                         if (item.importUri?[0] !=

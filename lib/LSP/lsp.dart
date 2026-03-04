@@ -1313,6 +1313,7 @@ class LspCompletion {
 
   @override
   String toString() => toJson().toString();
+  String? get returnType => completionItem['detail'] as String?;
 }
 
 /// Represents an error in the LSP (Language Server Protocol).
